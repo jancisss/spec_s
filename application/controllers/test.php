@@ -1,17 +1,19 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class Test extends CI_Controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
     }
 
+    public function index() {
+        $this->load->model('test_model', 'data');
+        print_r($res = $this->data->test_f());
+        
+    }
 
-	public function index()
-	{
-	$this->load->model('test_model', 'data');
-        $this->data->test_f();
-	}
 }
 

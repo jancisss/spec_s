@@ -8,8 +8,10 @@ class Test_model extends CI_Model {
     }
 
     public function test_f() {
-        $query = $this->db->get('budget2012');
-        return $query;
+        $query = $this->db;;
+        $query1=$query->select('name')->from('budget2012');
+        return $query1;
+        
     }
 
 }
