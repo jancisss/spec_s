@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Budget extends CI_Controller {
     function __construct() {
@@ -11,7 +11,10 @@ class Budget extends CI_Controller {
         $parent = (intval($parent) == 0) ? null : intval($parent);
         $budget = $this->Budget_model;
         $data['budget_items'] = $budget->get_data($parent);
+        $this->load->view('header');
+        $this->load->view('sidebar');
         $this->load->view('budget/view', $data);
+        $this->load->view('footer');
     }
 
 }
