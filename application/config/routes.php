@@ -41,6 +41,8 @@
 $route['default_controller'] = "test";
 $route['404_override'] = '';
 
+$route['budget/(:num)'] = 'budget/index/$1';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
