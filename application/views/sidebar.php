@@ -1,5 +1,5 @@
     <div id="sidebar_container">
-        <img class="paperclip" src="../img/paperclip.png" alt="paperclip" />
+        <img class="paperclip" src="<?php echo base_url('/img/paperclip.png');?>" alt="paperclip" />
         <div class="sidebar">
         <!-- insert your sidebar items here -->
         <h3>Latest News</h3>
@@ -7,7 +7,7 @@
         <h5>1st July 2011</h5>
         <p>Put your latest news item here, or anything else you would like in the sidebar!<br /><a href="#">Read more</a></p>
         </div>
-        <img class="paperclip" src="../img/paperclip.png" alt="paperclip" />
+        <img class="paperclip" src="<?php echo base_url('/img/paperclip.png');?>" alt="paperclip" />
         <div class="sidebar">
           <h3>Newsletter</h3>
           <p>If you would like to receive our newletter, please enter your email address and click 'Subscribe'.</p>
@@ -16,7 +16,7 @@
             <p><input class="subscribe" name="subscribe" type="submit" value="Subscribe" /></p>
           </form>
         </div>
-        <img class="paperclip" src="../img/paperclip.png" alt="paperclip" />
+        <img class="paperclip" src="<?php echo base_url('/img/paperclip.png')?>" alt="paperclip" />
         <div class="sidebar">
           <h3>Latest Blog</h3>
           <h4>Website Goes Live</h4>

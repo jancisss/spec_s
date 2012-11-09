@@ -16,7 +16,7 @@
     <div id="header">
       <div id="logo">
         <h1>Specseminārs</h1>
-        <div class="slogan">Cool slogan goes here!</div>
+        
       </div>
       <div id="menubar">
         <ul id="menu">
@@ -25,7 +25,7 @@
           <li><a href="examples.html">Examples</a></li>
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+      
         </ul>
       </div>
     </div>
