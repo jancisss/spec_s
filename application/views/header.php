@@ -15,7 +15,7 @@
   <div id="main">
     <div id="header">
       <div id="logo">
-        <h1>simplestyle<a href="#">_7</a></h1>
+        <h1>Specseminārs</h1>
         <div class="slogan">Cool slogan goes here!</div>
       </div>
       <div id="menubar">
