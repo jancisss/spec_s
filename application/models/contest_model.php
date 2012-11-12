@@ -40,5 +40,15 @@ class Contest_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
+    
+    public function winers_count($organization='',$institution='' ){
+        
+    }
 
+    public function institutions_organizations($institution){
+         $query = $this->db->select('id')->
+                              from('other_organizations');
+        $data = $query->get()->result();
+        return $data;
+    }
 }
