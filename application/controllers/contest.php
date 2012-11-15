@@ -17,7 +17,7 @@ class Contest extends CI_Controller {
         $data['institutions'] = $this->Contest_model->get_institutions();
         $data['organizations'] = $this->Contest_model->get_organizations();
         $this->load->view('header');
-        $this->load->view('sidebar');
+       //$this->load->view('sidebar');
         $this->load->view('contest/index', $data);
         $this->load->view('footer');
     }
