@@ -1,1 +1,40 @@
-{"nodes":[{"name":"Myriel","group":1},{"name":"Myriel2","group":2},{"name":"Myriel23","group":1}],"links":[{"source":1,"target":0,"value":0},{"source":1,"target":2,"value":0},{"source":1,"target":2,"value":0}]}
+﻿{
+    "name": "jjjjhj",
+    "children": [
+   
+    {
+        "name": "Veselības ministrija",
+        "children": [
+        {
+            "name": "SIA Mācību tehniskais centrs", 
+            "size": 19920
+        },
+
+        {
+            "name": "FR Dizaina studija", 
+            "size": 177566.4
+        }     
+
+       
+        ]
+    },  "name": "jjjjhj",
+    "children": [
+   
+    {
+        "name": "Veselības ministrija",
+        "children": [
+        {
+            "name": "SIA Mācību tehniskais centrs", 
+            "size": 19920
+        },
+
+        {
+            "name": "FR Dizaina studija", 
+            "size": 177566.4
+        }     
+
+       
+        ]
+    }
+
+}
