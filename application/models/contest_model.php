@@ -3,7 +3,7 @@
 class Contest_model extends CI_Model {
 
     function __construct() {
-        // Call the Model constructor
+        
         parent::__construct();
     }
 
@@ -22,21 +22,9 @@ class Contest_model extends CI_Model {
         return $data;
     }
 
-    public function get_all_instiutions() {
-        /* $query = $this->db->select('institutions.id, institutions.nosaukums')->
-          from('institutions, iub_contests');
-          //where('iub_contests.institution_id', 'institutions.id'); */
-    }
+ 
 
-    public function write_file($line) {
-        $file = 'people.js';
-// Open the file to get existing content
-        $current = file_get_contents($file);
-// Append a new person to the file
-        $current .= $line;
-// Write the contents back to the file
-        file_put_contents($file, $current . "\n");
-    }
+   
 
     public function get_ministerial() {
         $query = $this->db->select('id,nosaukums')->
@@ -54,6 +42,7 @@ class Contest_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
+
     //Institūciju publiskie iepirkumi
     public function inst_data($id) {
         $query = $this->db->select('OO.title, ICW.price')->
@@ -64,21 +53,23 @@ class Contest_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
-    public function sub_institutions($misinstry_ID=0){
-        if ($misinstry_ID==0) return 0;
+    //Ministrijas padotās institūciajas
+    public function sub_institutions($misinstry_ID = 0) {
+        if ($misinstry_ID == 0)
+            return 0;
         $query = $this->db->select('id, nosaukums')->
                 from('institutions')->
                 where('padotibas_ministrija', $misinstry_ID);
         $data = $query->get()->result();
         return $data;
     }
-    
-    public function json_file($title, $content){        
+
+    //JSON faila rakstīšana
+    public function json_file($title, $content) {
         $fh = fopen($title, 'w') or die("can't open file");
         $stringData = json_encode($content);
         fwrite($fh, $stringData);
         fclose($fh);
     }
-   
 
 }

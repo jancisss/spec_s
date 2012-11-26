@@ -13,13 +13,13 @@ class Contest extends CI_Controller {
     public function index() {
 
         $this->load->view('header');
-        $ministerieal = $this->Contest_model->get_ministerial();
+        $data['ministerieal'] = $this->Contest_model->get_ministerial();
         $ministry_array = array(); //ministriju masūvs
-        foreach ($ministerieal as $ministry) {
+        foreach ($data['ministerieal'] as $ministry) {
             $instiutions = $this->Contest_model->inst_data($ministry->id); //ministrijas publisko iepirkumu informācija
             $insti_array = array(); //institūciju masīvs
             foreach ($instiutions as $instiution) {
-                array_push($insti_array, array("name" => $instiution->title, "size" => $instiution->price)); //masīvs ar konkursiem
+                array_push($insti_array, array("name" => $instiution->title, "size" => round($instiution->price))); //masīvs ar konkursiem
             }
             array_push($ministry_array, array("name" => $ministry->nosaukums, "children" => $insti_array)); //intitūcijām piesaista iepirkumus
         }
@@ -27,8 +27,8 @@ class Contest extends CI_Controller {
         $head_array = array("name" => "root",
             "children" => $ministry_array);
         //Json faila ģenerīšana
-        $this->Contest_model->json_file('../testFile.json', $head_array);
-        $this->load->view('contest/index'); //galvenais skats
+        $this->Contest_model->json_file('ministry_data.json', $head_array);
+        $this->load->view('contest/index', $data); //galvenais skats
         $this->load->view('footer');
     }
 
@@ -37,16 +37,15 @@ class Contest extends CI_Controller {
             redirect('/contest');
         $this->load->view('header');
 
-        $inst_s = $this->Contest_model->sub_institutions($ministry_ID);       
+        $inst_s = $this->Contest_model->sub_institutions($ministry_ID);
         $inst_array = array();
-        foreach ($inst_s as $institution){
+        foreach ($inst_s as $institution) {
             $other_organizations = $this->Contest_model->inst_data($institution->id);
-            $other_organizations_array = array(); 
-            foreach($other_organizations as $other_organization){
-                array_push($other_organizations_array, array("name" => $other_organization->title, "size" => $other_organization->price));
+            $other_organizations_array = array();
+            foreach ($other_organizations as $other_organization) {
+                array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round($other_organization->price)));
             }
             array_push($inst_array, array("name" => $institution->nosaukums, "children" => $other_organizations_array));
-            
         }
 
         //root masīvam pievienoju ministrijas ar iepirkumiem

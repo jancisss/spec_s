@@ -9,7 +9,7 @@
       
     </style>
    
-    <script src="<?php echo base_url('/scripts/d3.v2.js');?>"></script>
+    
    
     <script>
          

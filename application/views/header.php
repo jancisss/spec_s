@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css" />
+  <script src="<?php echo base_url('/scripts/d3.v2.js');?>"></script>
 </head>
 
 <body>
@@ -21,7 +22,7 @@
       <div id="menubar">
         <ul id="menu">
           <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="current"><a href="index.html">Home</a></li>
+          <li class="current"><a href="<?php echo base_url('/contest');?>">Iepirkumi</a></li>
           <li><a href="examples.html">Examples</a></li>
           <li><a href="page.html">A Page</a></li>
           <li><a href="another_page.html">Another Page</a></li>

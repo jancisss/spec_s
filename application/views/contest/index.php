@@ -20,11 +20,19 @@
         }
 
     </style>
-    <!--<script src="http://d3js.org/d3.v3.min.js"></script> -->
-    <script src="<?php echo base_url('/scripts/d3.v2.js');?>"></script>
-    <h3 ><a id ="izglitibas_zin_ministrija" href="<?php echo base_url('contest/inst_iub/6');?>">Izglītības un zinātnes ministrija</a></h3>
-    <h3 ><a id ="ekanomikas_ministrija" href="<?php echo base_url('contest/inst_iub/3');?>">Ekanomikas ministrija</a></h3>
-    <h3 id ="vesalibas_ministrija">Vesalības ministrija</h3>
+    <h2>Padoto ministriju iepirkumi</h2>
+    <ul>
+    <?php
+    foreach ($ministerieal as $ministry) {
+        ?><li><a  href="<?php echo base_url("contest/inst_iub/$ministry->id"); ?>"><?php echo $ministry->nosaukums;?></a></li> <?php
+    }
+    ?>
+    </ul>
+    <h4 ><a id ="izglitibas_zin_ministrija" href="<?php echo base_url('contest/inst_iub/6'); ?>">Izglītības un zinātnes ministrija</a></h4>
+    <h4 ><a id ="ekanomikas_ministrija" href="<?php echo base_url('contest/inst_iub/3'); ?>">Ekanomikas ministrija</a></h4>
+    <h4 id ="vesalibas_ministrija">Vesalības ministrija</h4>
+
+
     <script>
          
         var diameter = 960,
@@ -45,14 +53,14 @@
         .attr("height", diameter)
         .attr("class", "bubble");
 
-        d3.json("../testFile.json", function(error, root) {
+        d3.json("<?php echo base_url('/ministry_data.json'); ?>", function(error, root) {
             var node = svg.selectAll(".node")
             .data(bubble.nodes(classes(root))
             .filter(function(d) { return !d.children; }))
             .enter().append("g")
             .attr("class", "node")
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-console.log(bubble.nodes(classes(root)));
+            console.log(bubble.nodes(classes(root)));
             node.append("title")
             .text(function(d) { return d.className + ": " + format(d.value); });
 
