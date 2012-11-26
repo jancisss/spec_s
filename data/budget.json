@@ -1,0 +1,51 @@
+{
+ "title": "main",
+ "children": [
+  {
+   "title": "2nd Level Group",
+   "children": [
+    {
+     "title": "3rd level 1",
+     "children": [
+      {"title": "4th level 1.1", "value": 25},
+      {"title": "4th level 1.2", "value": 30},
+      {"title": "4th level 1.3", "value": 50}
+     ]
+    },
+    {
+     "title": "3d level 2",
+     "children": [
+      {
+		"title": "4th level 2.1",
+		"children": [
+			{
+			 "title": "5h level 2.1.1", 
+			 "children": [
+				{
+				 "title": "6th level 2.1.1.1", 
+				 "children": [
+					{
+					 "title": "7th level 2.1.1.1.1",
+					 "children": [
+						{
+						 "title": "8th level 2.1.1.1.1.1",
+						 "children": [
+							{"title": "9th level 2.1.1.1.1.1.1", "value": 40}
+						 ]
+						}
+					 ]
+					}
+				 ]
+				},
+				{"title": "6th level 2.1.1.2", "value": 30}
+			 ]
+			}
+		]
+	  },
+      {"title": "4th level 2.2", "value": 60}
+     ]
+    }
+   ]
+  }
+ ]
+}

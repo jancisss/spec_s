@@ -8,13 +8,15 @@ class Budget extends CI_Controller {
 
     public function index($parent = 0)
     {
-        $parent = (intval($parent) == 0) ? null : intval($parent);
-        $budget = $this->Budget_model;
-        $data['budget_items'] = $budget->get_data($parent);
-        $this->load->view('header');
-        $this->load->view('sidebar');
-        $this->load->view('budget/view', $data);
-        $this->load->view('footer');
+//        $parent = (intval($parent) == 0) ? null : intval($parent);
+//        $budget = $this->Budget_model;
+//        $data['budget_items'] = $budget->get_data($parent);
+//        $this->load->view('header');
+//        $this->load->view('sidebar');
+//        $this->load->view('budget/view', $data);
+//        $this->load->view('footer');
+        
+        $this->load->view('budget/index');
     }
 
 }
