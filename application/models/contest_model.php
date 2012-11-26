@@ -54,9 +54,8 @@ class Contest_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
-
-    public function misistry_data($id) {
-
+    //Institūciju publiskie iepirkumi
+    public function inst_data($id) {
         $query = $this->db->select('OO.title, ICW.price')->
                 from('iub_contests AS IC, other_organizations AS OO, iub_contest_winners AS ICW')->
                 where('IC.institution_id', $id)->
@@ -64,10 +63,22 @@ class Contest_model extends CI_Model {
                 where('ICW.id = OO.id');
         $data = $query->get()->result();
         return $data;
-
-
-
+    }
+    public function sub_institutions($misinstry_ID=0){
+        if ($misinstry_ID==0) return 0;
+        $query = $this->db->select('id, nosaukums')->
+                from('institutions')->
+                where('padotibas_ministrija', $misinstry_ID);
+        $data = $query->get()->result();
         return $data;
     }
+    
+    public function json_file($title, $content){        
+        $fh = fopen($title, 'w') or die("can't open file");
+        $stringData = json_encode($content);
+        fwrite($fh, $stringData);
+        fclose($fh);
+    }
+   
 
 }

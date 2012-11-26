@@ -6,36 +6,55 @@ class Contest extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->model('Contest_model');
     }
 
-    public function index() {      
-        $this->load->model('Contest_model');       
-        $ministerieal = $this->Contest_model->get_ministerial();
-        $this->load->view('header');
-        $ministry_array = array();//ministriju masūvs
-        foreach ($ministerieal as $ministry) {
+    //Ministriju publiskie iepirkumi
+    public function index() {
 
-            $instiutions = $this->Contest_model->misistry_data($ministry->id);//ministrijas publisko iepirkumu informācija
-            $insti_array = array();//institūciju masīvs
-            foreach ($instiutions as $instiution) {             
-                array_push($insti_array, array("name" => $instiution->title, "size" => $instiution->price));//masīvs ar konkursiem
+        $this->load->view('header');
+        $ministerieal = $this->Contest_model->get_ministerial();
+        $ministry_array = array(); //ministriju masūvs
+        foreach ($ministerieal as $ministry) {
+            $instiutions = $this->Contest_model->inst_data($ministry->id); //ministrijas publisko iepirkumu informācija
+            $insti_array = array(); //institūciju masīvs
+            foreach ($instiutions as $instiution) {
+                array_push($insti_array, array("name" => $instiution->title, "size" => $instiution->price)); //masīvs ar konkursiem
             }
-            array_push($ministry_array, array("name" => $ministry->nosaukums, "children" => $insti_array));//intitūcijām piesaista iepirkumus
+            array_push($ministry_array, array("name" => $ministry->nosaukums, "children" => $insti_array)); //intitūcijām piesaista iepirkumus
         }
-        //root masīvam pievienoju intitūcijas ar iepirkumiem
+        //root masīvam pievienoju ministrijas ar iepirkumiem
         $head_array = array("name" => "root",
             "children" => $ministry_array);
         //Json faila ģenerīšana
-        $myFile = "testFile.json";
-        $fh = fopen($myFile, 'w') or die("can't open file");
+        $this->Contest_model->json_file('../testFile.json', $head_array);
+        $this->load->view('contest/index'); //galvenais skats
+        $this->load->view('footer');
+    }
 
+    public function inst_iub($ministry_ID = 0) {
+        if ($ministry_ID == 0)
+            redirect('/contest');
+        $this->load->view('header');
 
-        $stringData = json_encode($head_array);
-        fwrite($fh, $stringData);
+        $inst_s = $this->Contest_model->sub_institutions($ministry_ID);       
+        $inst_array = array();
+        foreach ($inst_s as $institution){
+            $other_organizations = $this->Contest_model->inst_data($institution->id);
+            $other_organizations_array = array(); 
+            foreach($other_organizations as $other_organization){
+                array_push($other_organizations_array, array("name" => $other_organization->title, "size" => $other_organization->price));
+            }
+            array_push($inst_array, array("name" => $institution->nosaukums, "children" => $other_organizations_array));
+            
+        }
 
-        fclose($fh);
-        
-        $this->load->view('contest/index');//galvenais skats
+        //root masīvam pievienoju ministrijas ar iepirkumiem
+        $head_array = array("name" => "root",
+            "children" => $inst_array);
+        //Json faila ģenerīšana
+        $this->Contest_model->json_file('sub_inst.json', $head_array);
+        $this->load->view('contest/inst_iub'); //galvenais skats
         $this->load->view('footer');
     }
 

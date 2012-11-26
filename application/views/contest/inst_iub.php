@@ -6,33 +6,17 @@
         text {
             font: 10px sans-serif;
         }
-        #izglitibas_zin_ministrija{
-            color:#3399cc;
-            font-weight:bold;
-        }
-        #ekanomikas_ministrija{
-            color:#2CA02C;
-            font-weight:bold;
-        }
-        #vesalibas_ministrija{
-            color:#D62728;
-            font-weight:bold;
-        }
-
+      
     </style>
-    <!--<script src="http://d3js.org/d3.v3.min.js"></script> -->
+   
     <script src="<?php echo base_url('/scripts/d3.v2.js');?>"></script>
-    <h3 ><a id ="izglitibas_zin_ministrija" href="<?php echo base_url('contest/inst_iub/6');?>">Izglītības un zinātnes ministrija</a></h3>
-    <h3 ><a id ="ekanomikas_ministrija" href="<?php echo base_url('contest/inst_iub/3');?>">Ekanomikas ministrija</a></h3>
-    <h3 id ="vesalibas_ministrija">Vesalības ministrija</h3>
+   
     <script>
          
         var diameter = 960,
         format = d3.format(",d"),
         color = d3.scale.category10();
-        //alert(getRoot2(4));
-        //alert(Math.SQRT2(4));
-        //alert(Math.sqrt(4));
+       
 
         var bubble = d3.layout.pack()
         .sort(null)
@@ -45,7 +29,7 @@
         .attr("height", diameter)
         .attr("class", "bubble");
 
-        d3.json("../testFile.json", function(error, root) {
+        d3.json("<?php echo base_url('sub_inst.json');?>", function(error, root) {
             var node = svg.selectAll(".node")
             .data(bubble.nodes(classes(root))
             .filter(function(d) { return !d.children; }))
