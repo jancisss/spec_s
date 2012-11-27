@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css" />
-  <script src="<?php echo base_url('/scripts/d3.v2.js');?>"></script>
+ <script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
 
 <body>
