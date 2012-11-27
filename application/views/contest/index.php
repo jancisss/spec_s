@@ -32,7 +32,7 @@
     <h4 ><a id ="ekanomikas_ministrija" href="<?php echo base_url('contest/inst_iub/3'); ?>">Ekanomikas ministrija</a></h4>
     <h4 id ="vesalibas_ministrija">Vesalības ministrija</h4>
 
-
+<script src="http://d3js.org/d3.v2.js"></script>
     <script>
          
         var diameter = 960,
