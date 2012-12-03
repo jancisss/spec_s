@@ -168,12 +168,13 @@ ul#menu li a:hover
 { color: #F14E23;}
 
 #site_content
-{ width: 950px;
-  overflow: hidden;
-  margin: 0 auto 0 auto;
-  padding: 0;
-  background: #fff;
-  border: 1px solid #E7E7E7;} 
+{  
+    width: 950px;
+    overflow: hidden;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #E7E7E7;} 
 
 #sidebar_container
 { float: right;
@@ -205,7 +206,7 @@ ul#menu li a:hover
 #content
 { text-align: left;
   width: 100%;
-  padding: 25px 0 5px 25px;
+  padding: 25px 50px 5px 25px;
   margin: 0;}
 
 #content ul
@@ -254,7 +255,7 @@ ul#menu li a:hover
   float: left; 
   width: 170px; 
   text-align: left;}
-  
+
 .form_settings input, .form_settings textarea
 { width: 252px; 
   font: 100% 'trebuchet ms', arial;
@@ -263,7 +264,7 @@ ul#menu li a:hover
   padding: 5px 10px;
   background: #fff;
   color: #FFF;}
-  
+
 .form_settings .submit
 { border: 0; 
   width: auto;
@@ -300,7 +301,7 @@ ul#menu li a:hover
   padding: 10px 5px;
   width: 189px;
   color: #F14E23;}
-  
+
 .subscribe
 { color: #35BDF5;
   border: 1px solid #ddd;
@@ -310,7 +311,7 @@ ul#menu li a:hover
   cursor: pointer;
   margin: 0;
   font: normal 140% 'Yanone Kaffeesatz', sans-serif;}
- 
+
 table
 { margin: 10px 0 30px 0;}
 
@@ -319,8 +320,60 @@ table tr th, table tr td
   color: #111;
   padding: 7px 4px;
   text-align: left;}
-  
+
 table tr td
 { background: #FBFBFB;
   color: #111;
   border-top: 1px solid #FFF;}
+
+#link_1b{
+    color:#1f77b4;
+    background-color:#1f77b4;
+}
+#link_1{
+    color:#1f77b4;
+    font-weight:bold;
+}
+
+#link_2b{
+    color:#ff7f0e;
+    background-color:#ff7f0e;
+}
+#link_2{
+    color:#ff7f0e;
+    font-weight:bold;
+}
+#link_3b{
+    color:#2ca02c;
+    background-color:#2ca02c;
+}
+#link_3{
+    color:#2ca02c;
+    font-weight:bold;
+}
+#link_4b{
+    color:#d62728;
+    background-color:#d62728;
+}
+#link_4{
+    color:#d62728;
+    font-weight:bold;
+}
+#link_5{
+    color:#9467bd;
+}
+#link_6{
+    color:#8c564b;
+}
+#link_7{
+    color:#e377c2;
+}
+#link_8{
+    color:#e377c2;
+}
+#link_9{
+    color:#bcbd22;
+}
+#link_10{
+    color:#17becf;
+}

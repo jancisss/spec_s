@@ -3,44 +3,45 @@
     <meta charset="utf-8">
     <style>
 
-        text {
-            font: 10px sans-serif;
-        }
-        #izglitibas_zin_ministrija{
-            color:#3399cc;
-            font-weight:bold;
-        }
-        #ekanomikas_ministrija{
-            color:#2CA02C;
-            font-weight:bold;
-        }
-        #vesalibas_ministrija{
-            color:#D62728;
-            font-weight:bold;
-        }
+      
+
 
     </style>
-    <h2>Padoto ministriju iepirkumi</h2>
+    <h2>Ministijas padoto institūciju iepirkumi</h2>
     <ul>
-    <?php
-    foreach ($ministerieal as $ministry) {
-        ?><li><a  href="<?php echo base_url("contest/inst_iub/$ministry->id"); ?>"><?php echo $ministry->nosaukums;?></a></li> <?php
+        <?php
+        
+        foreach ($ministerieal as $ministry) {
+            ?><li><a  href="<?php echo base_url("contest/inst_iub/$ministry->id"); ?>"><?php echo $ministry->nosaukums; ?></a></li> <?php
     }
-    ?>
+        ?>
     </ul>
-    <h4 ><a id ="izglitibas_zin_ministrija" href="<?php echo base_url('contest/inst_iub/6'); ?>">Izglītības un zinātnes ministrija</a></h4>
-    <h4 ><a id ="ekanomikas_ministrija" href="<?php echo base_url('contest/inst_iub/3'); ?>">Ekanomikas ministrija</a></h4>
-    <h4 id ="vesalibas_ministrija">Vesalības ministrija</h4>
+    <h1>Ministriju iepirkumi</h1>
 
-
+    <table >
+        <tr>
+            <td id="link_1" >Ekonomikas ministrija</td>
+            <td id="link_1b" ></td>
+        </tr>
+        <tr>
+            <td id="link_2">Finanšu ministrija</td>
+            <td width ="60px" id="link_2b"></td>
+        </tr>
+        <tr>
+            <td id="link_3">Izglītības un zinātnes ministrija</td>
+            <td width ="60px" id="link_3b"></td>
+        </tr>
+        <tr>
+            <td id="link_4">Vesalības ministrija</td>
+            <td width ="60px" id="link_4b"></td>
+        </tr>
+    </table>
     <script>
          
         var diameter = 960,
         format = d3.format(",d"),
         color = d3.scale.category10();
-        //alert(getRoot2(4));
-        //alert(Math.SQRT2(4));
-        //alert(Math.sqrt(4));
+        
 
         var bubble = d3.layout.pack()
         .sort(null)
