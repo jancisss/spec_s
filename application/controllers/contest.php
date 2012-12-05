@@ -11,8 +11,8 @@ class Contest extends CI_Controller {
 
     //Ministriju publiskie iepirkumi
     public function index() {
-
-        $this->load->view('header');
+        $head_data['active_page'] = 'c';
+        $this->load->view('header',$head_data);
         $data['ministerieal'] = $this->Contest_model->get_ministerial();
         $ministry_array = array(); //ministriju masūvs
         foreach ($data['ministerieal'] as $ministry) {
@@ -35,7 +35,8 @@ class Contest extends CI_Controller {
     public function inst_iub($ministry_ID = 0) {
         if ($ministry_ID == 0)
             redirect('/contest');
-        $this->load->view('header');
+        $head_data['active_page'] = 'c';
+        $this->load->view('header', $head_data);
         $data['ministry_title'] = $this->Contest_model->get_ministry_by_ID($ministry_ID);
         $inst_s = $this->Contest_model->sub_institutions($ministry_ID);
         $inst_array = array();      
