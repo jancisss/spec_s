@@ -9,7 +9,7 @@
    foreach($inst_list as $list){
          ?>
         <tr>
-            <td id="link_<?php echo $skaititajs; ?>" ><?php echo $list->nosaukums?></td>
+            <td><a  id="link_<?php echo $skaititajs; ?>" href="<?php echo base_url("Inst/inst/$list->id"); ?>" ><?php echo $list->nosaukums?></a></td>
             <td id="link_<?php echo $skaititajs; ?>b"  width="50" ></td>
         </tr>
        
