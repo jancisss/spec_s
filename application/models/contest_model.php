@@ -71,5 +71,15 @@ class Contest_model extends CI_Model {
         fwrite($fh, $stringData);
         fclose($fh);
     }
+    //Informācija par ministriju pēc ID
+    public function get_ministry_by_ID($misinstry_ID = 0){
+        if ($misinstry_ID == 0)
+            return 0;
+        $query = $this->db->select('id, nosaukums')->
+                from('institutions')->
+                where('id', $misinstry_ID);
+        $data = $query->get()->result();
+        return $data;
+    }
 
 }

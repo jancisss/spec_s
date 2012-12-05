@@ -19,13 +19,13 @@ img
 { border: 0;}
 
 h1, h2, h3, h4, h5, h6 
-{ font: normal 250% 'Yanone Kaffeesatz', arial, sans-serif;
+{ font: normal 250% 'Times New Roman', arial, sans-serif;
   color: #444;
   margin: 0 0 15px 0;
   padding: 5px 0 5px 0;}
 
 h2
-{ font: normal 170% 'Yanone Kaffeesatz', arial, sans-serif;
+{ font: normal 170% 'Times New Roman', arial, sans-serif;
   color: #F14E23;  
   margin: 0;
   padding: 0 0 8px 0;}
@@ -359,21 +359,51 @@ table tr td
     color:#d62728;
     font-weight:bold;
 }
+#link_5b{
+    color:#9467bd;
+    background-color:#9467bd;
+}
 #link_5{
     color:#9467bd;
+    font-weight:bold;
+}
+#link_6b{
+    color:#8c564b;
+    background-color:#8c564b;
 }
 #link_6{
     color:#8c564b;
+    font-weight:bold;
+}
+#link_7b{
+    color:#e377c2;
+    background-color:#e377c2;
 }
 #link_7{
     color:#e377c2;
+    font-weight:bold;
+}
+#link_8b{
+    color:#e377c2;
+    background-color:#e377c2;
 }
 #link_8{
     color:#e377c2;
+    font-weight:bold;
+}
+#link_9b{
+    color:#bcbd22;
+    background-color:#bcbd22;
 }
 #link_9{
     color:#bcbd22;
+    font-weight:bold;
+}
+#link_10b{
+    color:#17becf;
+    background-color:#17becf;
 }
 #link_10{
     color:#17becf;
+    font-weight:bold;
 }

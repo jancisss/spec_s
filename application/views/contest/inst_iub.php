@@ -1,15 +1,25 @@
 <div id ="contest">
-    <!DOCTYPE html>
-    <meta charset="utf-8">
-    <style>
-
-        text {
-            font: 10px sans-serif;
-        }
-      
-    </style>
    
+    <h1><?php echo $ministry_title[0]->nosaukums;?> padoto institūciju dati</h1>
     
+   <table >
+   <?php 
+  //print_r($ministry_title);
+   $skaititajs = 1;
+   foreach($inst_list as $list){
+         ?>
+        <tr>
+            <td id="link_<?php echo $skaititajs; ?>" ><?php echo $list->nosaukums?></td>
+            <td id="link_<?php echo $skaititajs; ?>b"  width="50" ></td>
+        </tr>
+       
+   
+    <?php
+    $skaititajs++;
+   }
+       
+   ?>
+     </table>
    
     <script>
          
