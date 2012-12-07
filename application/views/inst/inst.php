@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="span11 center_elem  main_elem">
     <?php //print_r($inst_s);
     ?> <h1> <?php echo $inst_s[0]->nosaukums; ?> </h1>
 

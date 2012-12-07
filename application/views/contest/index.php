@@ -1,12 +1,5 @@
-<div id ="contest">
-    <!DOCTYPE html>
-    <meta charset="utf-8">
-    <style>
-
-      
-
-
-    </style>
+<div id ="contest" class="span11 center_elem  main_elem">
+   
     <h2>Ministijas padoto institūciju iepirkumi</h2>
     <ul>
         <?php

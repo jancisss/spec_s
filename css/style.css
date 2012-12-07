@@ -1,4 +1,4 @@
-html
+/*html
 { height: 100%;}
 
 *
@@ -325,7 +325,15 @@ table tr td
 { background: #FBFBFB;
   color: #111;
   border-top: 1px solid #FFF;}
-
+ */
+table tr th, table tr td
+{ 
+  padding: 7px 4px;
+  text-align: left;}
+table tr td
+{ color: #111;
+  border-top: 1px solid #FFF;}
+  
 #link_1b{
     color:#1f77b4;
     background-color:#1f77b4;
@@ -409,4 +417,29 @@ table tr td
 }
 #is_ministry{
     color:green;
+}
+body{
+	background-color: whitesmoke;
+}
+.navbar .navbar-inner{
+	padding-left: 20px;
+}
+
+.navbar {margin-bottom: 15px;}
+.center_elem {
+	margin: 0 auto;
+	float: none;
+	padding-left: 20px;
+}
+.main_elem {
+	padding: 0 20px;
+	background-color: white;
+	border: 1px solid #DDD;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.alert {
+	float: none;
+	margin: 0 auto;
 }

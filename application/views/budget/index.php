@@ -1,8 +1,4 @@
-<html>
-    <head>
-		<meta charset='utf-8' />
-        <title>D3</title>
-         <script type="text/javascript" src="<?php echo base_url() . 'scripts/d3.v2.js'; ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url() . 'scripts/d3.v2.js'; ?>"></script>
 		<style>
 			rect{
 				fill: grey;
@@ -23,8 +19,7 @@
 				fill: grey;
 			}
 		</style>
-    </head>
-    <body>
+
 		<article></article>
 		<script type="text/javascript">
 			var w = 1000, //svg width
@@ -190,6 +185,3 @@
 			
 			
         </script>
-		
-    </body>
-</html>

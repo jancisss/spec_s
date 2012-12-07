@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" class="span11 center_elem  main_elem">
     <ul>
         <?php
         foreach ($inst_s as $inst) {
