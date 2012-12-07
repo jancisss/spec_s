@@ -27,4 +27,4 @@
             
         </div>
     </div>
-	<div class=" center_elem">
+	<div class="center_elem">
