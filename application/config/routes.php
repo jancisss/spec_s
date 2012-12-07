@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "test";
+$route['default_controller'] = "contest";
 $route['404_override'] = '';
 
 $route['budget/(:num)'] = 'budget/index/$1';

@@ -1,4 +1,4 @@
-<div id ="contest">
+<div id ="contest" class="span11 center_elem  main_elem">
    
     <h1><?php echo $ministry_title[0]->nosaukums;?> padoto institūciju dati</h1>
     
