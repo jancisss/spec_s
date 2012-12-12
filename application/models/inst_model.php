@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class Inst_model extends CI_Model {
 
@@ -46,5 +46,7 @@ class Inst_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
+    
+    
 
 }

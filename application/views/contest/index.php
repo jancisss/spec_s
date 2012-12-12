@@ -56,7 +56,7 @@
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
             console.log(bubble.nodes(classes(root)));
             node.append("title")
-            .text(function(d) { return d.className + ": " + format(d.value); });
+            .text(function(d) { return d.className + ": " + format(d.value*d.value); });
 
             node.append("circle")
             .attr("r", function(d) { return d.r })

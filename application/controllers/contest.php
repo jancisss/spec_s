@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -12,7 +13,7 @@ class Contest extends CI_Controller {
     //Ministriju publiskie iepirkumi
     public function index() {
         $head_data['active_page'] = 'c';
-        $this->load->view('header',$head_data);
+        $this->load->view('header', $head_data);
         $data['ministerieal'] = $this->Contest_model->get_ministerial();
         $ministry_array = array(); //ministriju masūvs
         foreach ($data['ministerieal'] as $ministry) {
@@ -39,23 +40,21 @@ class Contest extends CI_Controller {
         $this->load->view('header', $head_data);
         $data['ministry_title'] = $this->Contest_model->get_ministry_by_ID($ministry_ID);
         $inst_s = $this->Contest_model->sub_institutions($ministry_ID);
-        $inst_array = array();      
+        $inst_array = array();
         $data['inst_list'] = array(); //ministrijas padoto institīuciju masīvs, prikš leģendas
         foreach ($inst_s as $institution) {
             $other_organizations = $this->Contest_model->inst_data($institution->id);
             if (!empty($other_organizations))//ja šai institūcijai ir iepirkumi
-                array_push ($data['inst_list'], $institution);
+                array_push($data['inst_list'], $institution);
             $other_organizations_array = array();
             foreach ($other_organizations as $other_organization) {
                 if (!empty($other_organization)) {
-                   /// if(!array_search($institution->nosaukums, $i))
-                  //  array_push($i, $institution->nosaukums);
-                    array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round( sqrt($other_organization->price))));
+                    array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round(sqrt($other_organization->price))));
                 }
             }
             array_push($inst_array, array("name" => $institution->nosaukums, "children" => $other_organizations_array));
         }
-      
+
         //root masīvam pievienoju ministrijas ar iepirkumiem
         $head_array = array("name" => "root",
             "children" => $inst_array);
@@ -90,4 +89,5 @@ class Contest extends CI_Controller {
     }
 
 }
+
 ?>

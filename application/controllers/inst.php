@@ -22,6 +22,26 @@ class Inst extends CI_Controller {
         $data['inst_s'] = $this->Inst_model->get_ministry_by_ID($inst_ID);
         $head_data['active_page'] = 'i';
         $this->load->view('header', $head_data);
+        $this->load->model('Contest_model');
+        $inst_array = array();
+        $other_organizations_array = array();
+        $other_organizations = $this->Contest_model->inst_data($inst_ID);
+        foreach ($other_organizations as $other_organization) {
+            if (!empty($other_organization)) {
+                array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round(sqrt($other_organization->price))));
+            }
+        }
+        array_push($inst_array, array("name" => "institūcija", "children" => $other_organizations_array));
+        if (empty($other_organizations_array))//ja nav ieprikumi
+            $data['yes_iub'] = FALSE;
+        else {  
+            $data['yes_iub'] = TRUE;
+            //root masīvam pievienoju ministrijas ar iepirkumiem
+            $head_array = array("name" => "root",
+                "children" => $inst_array);
+            //Json faila ģenerīšana
+            $this->Contest_model->json_file('inst_json.json', $head_array);
+        }
         $this->load->view('inst/inst', $data);
         $this->load->view('footer');
     }
