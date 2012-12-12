@@ -19,7 +19,7 @@ class Contest extends CI_Controller {
             $instiutions = $this->Contest_model->inst_data($ministry->id); //ministrijas publisko iepirkumu informācija
             $insti_array = array(); //institūciju masīvs
             foreach ($instiutions as $instiution) {
-                array_push($insti_array, array("name" => $instiution->title, "size" => round($instiution->price))); //masīvs ar konkursiem
+                array_push($insti_array, array("name" => $instiution->title, "size" => round(sqrt($instiution->price)))); //masīvs ar konkursiem
             }
             array_push($ministry_array, array("name" => $ministry->nosaukums, "children" => $insti_array)); //intitūcijām piesaista iepirkumus
         }
@@ -50,7 +50,7 @@ class Contest extends CI_Controller {
                 if (!empty($other_organization)) {
                    /// if(!array_search($institution->nosaukums, $i))
                   //  array_push($i, $institution->nosaukums);
-                    array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round($other_organization->price)));
+                    array_push($other_organizations_array, array("name" => $other_organization->title, "size" => round( sqrt($other_organization->price))));
                 }
             }
             array_push($inst_array, array("name" => $institution->nosaukums, "children" => $other_organizations_array));
