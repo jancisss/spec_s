@@ -19,10 +19,15 @@ class Inst extends CI_Controller {
     }
 
     public function inst($inst_ID = 0) {
+        $this->load->model('Contest_model');
         $data['inst_s'] = $this->Inst_model->get_ministry_by_ID($inst_ID);
+        //pakļautības ministrijas ID par nosaukumu
+        if (isset($data['inst_s'][0]->padotibas_ministrija)) {
+            $sub_ministry_name = $this->Contest_model->get_ministry_by_ID($data['inst_s'][0]->padotibas_ministrija);
+            $data['inst_s'][0]->padotibas_ministrija = $sub_ministry_name[0]->nosaukums;
+        }
         $head_data['active_page'] = 'i';
         $this->load->view('header', $head_data);
-        $this->load->model('Contest_model');
         $inst_array = array();
         $other_organizations_array = array();
         $other_organizations = $this->Contest_model->inst_data($inst_ID);
@@ -34,7 +39,7 @@ class Inst extends CI_Controller {
         array_push($inst_array, array("name" => "institūcija", "children" => $other_organizations_array));
         if (empty($other_organizations_array))//ja nav ieprikumi
             $data['yes_iub'] = FALSE;
-        else {  
+        else {
             $data['yes_iub'] = TRUE;
             //root masīvam pievienoju ministrijas ar iepirkumiem
             $head_array = array("name" => "root",

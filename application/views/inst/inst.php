@@ -16,7 +16,7 @@
         <?php } ?>
         <?php if (isset($inst_s[0]->padotibas_ministrija)) { ?>
             <tr>
-                <td>Padotības ministrija/td>
+                <td>Padotības ministrija</td>
                 <td><?php echo $inst_s[0]->padotibas_ministrija ?></td>
             </tr>
         <?php } ?>
@@ -123,6 +123,14 @@
             <td><?php echo $inst_s[0]->amatpersonas ?></td>
         </tr>
         <?php } ?>
+         <?php if ($yes_iub == FALSE) { ?>
+        <tr>
+            
+            <td>Iepikumi 2011. gadā </td>
+            <td>Nav</td>
+        </tr>
+        <?php } ?>
+        
     </table>
     <?php if ($yes_iub == TRUE) { ?>
         <h2><?php echo $inst_s[0]->nosaukums . ' publiskie iepikumi';
