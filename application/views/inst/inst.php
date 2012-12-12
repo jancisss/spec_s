@@ -17,7 +17,7 @@
         <?php if (isset($inst_s[0]->padotibas_ministrija)) { ?>
             <tr>
                 <td>Padotības ministrija</td>
-                <td><?php echo $inst_s[0]->padotibas_ministrija ?></td>
+                <td><a href="<?php echo base_url("/Inst/inst"); echo '/'.$inst_s[0]->sub_inst_link;?>"> <?php echo $inst_s[0]->padotibas_ministrija ?></a></td>
             </tr>
         <?php } ?>
             <?php if (isset($inst_s[0]->adrese)) { ?>
@@ -35,7 +35,7 @@
             <?php if (isset($inst_s[0]->majas_lapa)) { ?>
         <tr>
             <td>Mājas lapa</td>
-            <td><?php echo $inst_s[0]->majas_lapa ?></td>
+            <td><a href=" <?php echo $inst_s[0]->majas_lapa ?>"> <?php echo $inst_s[0]->majas_lapa ?></a></td>
         </tr>
          <?php } ?>
             <?php if (isset($inst_s[0]->e_pasts)) { ?>

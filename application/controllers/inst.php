@@ -24,7 +24,9 @@ class Inst extends CI_Controller {
         //pakļautības ministrijas ID par nosaukumu
         if (isset($data['inst_s'][0]->padotibas_ministrija)) {
             $sub_ministry_name = $this->Contest_model->get_ministry_by_ID($data['inst_s'][0]->padotibas_ministrija);
+            $data['inst_s'][0]->sub_inst_link = $data['inst_s'][0]->padotibas_ministrija;
             $data['inst_s'][0]->padotibas_ministrija = $sub_ministry_name[0]->nosaukums;
+            
         }
         $head_data['active_page'] = 'i';
         $this->load->view('header', $head_data);
