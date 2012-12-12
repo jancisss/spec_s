@@ -9,10 +9,23 @@ class Budget extends CI_Controller {
     public function index($parent = 0)
     {
         $header_data['active_page'] = 'budget';
-		  $this->load->view('header', $header_data);
-        $this->load->view('budget/index');
-		  $this->load->view('footer');
+		$this->load->view('header', $header_data);
+		$this->load->view('budget/index');
+		echo anchor('budget/create', 'click me');
+		$this->load->view('footer');
     }
+	 
+	public function create()
+	{
+		$budget = $this->Budget_model;
+		$budget->get_2012programs();
+
+		$data['programs'] = $budget->get_data();		
+		$header_data['active_page'] = 'budget';
+		$this->load->view('header', $header_data);
+		$this->load->view('budget/create', $data);
+		$this->load->view('footer');
+	}
 
 }
 
