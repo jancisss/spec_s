@@ -8,6 +8,80 @@ class Budget_model extends CI_Model {
     }
     var $programs  = null;
 	
+	public function get_programs()
+	{
+		$query = $this->db->query('
+            select bp.id,
+				   bp.nosaukums as title,
+				   0 value
+			  from budget_programs bp
+			 where cast(left(nosaukums, 2) as unsigned) > 0 
+			   and exists (
+					select "y" from budget_costs bc 
+					 where bc.programma = bp.id
+					   and bc.parent is null
+					   and bc.vards like "Izdevumi%"
+				)');
+		$this->programs = $query->result();
+		
+		//$this->add_parent();
+	}
+	public function get_program_data($parent = null)
+    {
+        foreach ($this->programs as $program)
+		{
+			$program->title = substr($program->title, strpos($program->title, '.')+1);
+			//$program->title = str_replace("\t", '', $program->title);
+			$query = $this->db->select('id,
+										vards as title,
+										summa as actual_value,
+										sqrt(sqrt(summa)) as value,
+										parent,
+										programma')->
+								  from('budget_costs')->
+								 where(array('parent' => null,
+											 'programma' => $program->id))->
+								  like('vards', 'Izdevumi');
+			
+			$children = $query->get()->result();
+			if(count($children) > 0){
+				$program->children = $children;
+				foreach ($program->children as $child)
+				{
+					$this->add_children_data($child);
+				}
+			}
+//			$program->children = $query->get()->result();
+//			foreach ($program->children as $child)
+//			{
+//				$this->add_children_data($child);
+//			}
+		}
+		
+        return $this->programs;
+    }
+	public function add_children_data($root)
+	{
+		$query = $this->db->select('id,
+									vards as title,
+									summa as actual_value,
+									sqrt(summa) as value,
+									parent,
+									programma')->
+							  from('budget_costs')->
+							 where(array('parent' => $root->id,
+										 'programma' => $root->programma));
+		$children = $query->get()->result();
+		if(count($children) > 0){
+			$root->children = $children;
+			foreach ($root->children as $child)
+			{
+				$this->add_children_data($child);
+			}
+	}
+	}
+	
+	
     public function get_data($parent = null)
     {
         $query = $this->db->select('program_id,

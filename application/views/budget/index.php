@@ -18,8 +18,11 @@
 			.leaf:hover {
 				fill: grey;
 			}
+			#info {
+				margin-bottom: 10px;
+			}
 		</style>
-
+		<div id='info'><p id='current'>Budžets</p></div>
 		<article></article>
 		<script type="text/javascript">
 			var w = 1000, //svg width
@@ -65,6 +68,7 @@
 					.attr('height', barHeight)
 					.attr('class', 'rect_0')
 					.attr('title', function(d){return d.title;})
+					.attr('actual_value', function(d){return d.actual_value;})
 					.attr('rx', rectrx)
 					.attr('ry', rectry)
 					.on('click', function(d){
@@ -72,7 +76,20 @@
 						svg.selectAll('.rect_1').classed('clicked', false);
 						d3.select(this).classed('clicked', true);
 						draw(d.children)
+						$("rect").mouseenter(function(){
+							$('#info').remove();
+							var p = $("<div id='info'><p id='current'>"
+								+$(this).attr('title')+"</p></div>");
+							p.insertBefore($("article"));
+						});
 					});
+				$("rect").unbind();
+				$("rect").mouseenter(function(){
+					$('#info').remove();
+					var p = $("<div id='info'><p id='current'>"
+						+$(this).attr('title')+"</p></div>");
+					p.insertBefore($("article"));
+				});
 			});
 			
 			function draw(node){
@@ -129,6 +146,8 @@
 					else
 						return true;
 				})
+				.attr('title', function(d){return d.title})
+				.attr('actual_value', function(d){return d.actual_value;})
 				.transition()
 				.attr('y', 0).attr('height', barHeight)
 					.attr('x', function(d, i){
@@ -145,6 +164,8 @@
 					});
 				dataSvg.enter()
 					.append('rect')
+					.attr('title', function(d){return d.title})
+					.attr('actual_value', function(d){return d.actual_value;})
 					.attr('y', 0)
 					.attr('x', function(d, i){
 						if(node.length == 1)
@@ -162,7 +183,7 @@
 					.on('click', function(d){
 						svg.selectAll('.rect_'+curDepth).classed('clicked', false);
 						svg.selectAll('.rect_'+(curDepth+1)).classed('clicked', false);
-						d3.select(this).classed('clicked', true);
+						d3.select(this).classed('clicked', true);						
 						if(d.children)
 							draw(d.children);
 					})
@@ -181,7 +202,45 @@
 					.transition()
 						.attr('height', 0)
 					.remove();
+					
+				$("rect").unbind();
+				$("rect").mouseenter(function(){
+					$('#info').remove();
+					var p = $("<div id='info'><p id='current'>"
+						+$(this).attr('title')+"</p></div>");
+					p.insertBefore($("article"));
+				});
 			}
 			
 			
         </script>
+		
+<div class="span11 center_elem  main_elem">
+	<h2>Budžets</h2>
+	<ul><?php foreach ($programs as $program): ?>
+		<li><?php 
+			echo $program->title;
+			if(isset($program->children)):
+				print_children($program);
+			endif;
+		?></li>
+	<?php endforeach; ?></ul>
+	
+	<!--<pre><?php 
+		//print_r($programs);
+		//echo json_encode($programs);
+	?></pre>-->
+</div>
+<?php
+	function print_children($root)
+	{
+		?><ul><?php foreach ($root->children as $costs): ?>
+			<li><?php 
+				echo $costs->title ;
+				if(isset($costs->children)):
+					print_children($costs);
+				endif;
+			?></li>
+		<?php endforeach;?></ul><?php
+	}
+?>
