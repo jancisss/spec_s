@@ -1,6 +1,8 @@
 <div id ="contest" class="span11 center_elem  main_elem">
-   
-    <h1><?php echo $ministry_title[0]->nosaukums;?> padoto institūciju dati</h1>
+   <?php if ($data==FALSE ) {
+       ?><h3><?php echo $ministry_title[0]->nosaukums;?> nav publisko iuebpikumi 2011. gadā</h3><?php
+   } else{?>
+    <h3><?php echo $ministry_title[0]->nosaukums;?> padoto institūciju dati</h3>
     
    <table >
    <?php 
@@ -76,5 +78,5 @@ console.log(bubble.nodes(classes(root)));
         d3.select(self.frameElement).style("height", diameter + "px");
 
     </script>
-
+<?php } ?>
 </div>

@@ -54,12 +54,16 @@ class Contest extends CI_Controller {
             }
             array_push($inst_array, array("name" => $institution->nosaukums, "children" => $other_organizations_array));
         }
-
-        //root masīvam pievienoju ministrijas ar iepirkumiem
-        $head_array = array("name" => "root",
-            "children" => $inst_array);
-        //Json faila ģenerīšana
-        $this->Contest_model->json_file('sub_inst.json', $head_array);
+        if (!empty($other_organization)) {
+            $data['data'] = TRUE;
+            //root masīvam pievienoju ministrijas ar iepirkumiem
+            $head_array = array("name" => "root",
+                "children" => $inst_array);
+            //Json faila ģenerīšana
+            $this->Contest_model->json_file('sub_inst.json', $head_array);
+        }  else {
+            $data['data'] = FALSE;
+        }
         //$data = '';
         $this->load->view('contest/inst_iub', $data); //galvenais skats
         $this->load->view('footer');

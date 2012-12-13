@@ -6,3 +6,4 @@
 /application/config/
 /NetBeans metadata
 /.htaccess
+/nbproject/private/

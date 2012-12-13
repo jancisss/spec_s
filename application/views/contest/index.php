@@ -1,6 +1,6 @@
 <div id ="contest" class="span11 center_elem  main_elem">
    
-    <h2>Ministijas padoto institūciju iepirkumi</h2>
+    <h3>Ministijas padoto institūciju iepirkumi</h3>
     <ul>
         <?php
         
@@ -9,7 +9,7 @@
     }
         ?>
     </ul>
-    <h1>Ministriju iepirkumi</h1>
+    <h3>Ministriju iepirkumi</h3>
 
     <table >
         <tr>

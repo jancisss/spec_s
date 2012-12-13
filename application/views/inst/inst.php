@@ -1,6 +1,6 @@
 <div id="content" class="span11 center_elem  main_elem">
     <?php
-    ?> <h1> <?php echo $inst_s[0]->nosaukums; ?> </h1>
+    ?> <h3> <?php echo $inst_s[0]->nosaukums; ?> </h3>
 
 
     <table >
@@ -133,8 +133,8 @@
         
     </table>
     <?php if ($yes_iub == TRUE) { ?>
-        <h2><?php echo $inst_s[0]->nosaukums . ' publiskie iepikumi';
-        ?></h2>
+        <h3><?php echo $inst_s[0]->nosaukums . ' publiskie iepikumi';
+        ?></h3>
         <div id="char"></div>
         <script>
             
