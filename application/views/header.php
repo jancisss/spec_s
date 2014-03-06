@@ -23,6 +23,9 @@
 				  <li class="<?php if($active_page == 'budget') 
 					  echo 'active';?>"><a href="<?php 
 					  echo base_url('/budget'); ?>">Budžets</a></li>
+                                  				  <li class="<?php if($active_page == 'import') 
+					  echo 'active';?>"><a href="<?php 
+					  echo base_url('/import'); ?>">Datu imports</a></li>
             </ul>
             
         </div>

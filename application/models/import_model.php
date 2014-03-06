@@ -45,5 +45,15 @@ class Import_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
+    
+        public function findParent($class) {
+        if ($class == 0)
+            return 0;
+        $query = $this->db->select('id')->
+                from('institutions')->
+                where('class >', $class);
+        $data = $query->get()->result();
+        return $data;
+    }
 
 }
