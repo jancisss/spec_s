@@ -33,44 +33,35 @@ class Import extends CI_Controller {
 
         $this->import_model->createTable($table);
 
-       
-
         foreach ($lines as $line) {
             if ($this->haveClass($line)) {
-                if ($this->getType($line) == 'string') {
-                    $current = new stdClass();
-                    if ($current->class < $past->class) {
-                        $current->parent = $past->id;
+                if ($this->getType($line) == 'string' && $this->getValue($line) != '') {
+                    $parent = $this->import_model->findParent($table, $this->findClass($line));
+                    if (isset($parent[0]->id)) {
+                        $parentId = $parent[0]->id;
+                    } else {
+                        $parentId = null;
                     }
-                    $current->id = $this->import_model->insertRecord($table, null, $this->getValue($line), null, $this->findClass($line));
-                    $past = $current;
-                    /*
-                      for ($i = 0; $i < count($classes); $i++) {
-                      if ($classes[$i]->class == $this->findClass($line)) {
-                      $f = 1;
-                      if ($i == 0) {
-                      $parent = null;
-                      } else {
-                      $parent = $classes[$i - 1]->key;
-                      }
-                      echo '</br>' . "ievietoju tabulā $table ar vacāku   $parent    vārdu " . $this->getValue($line) . " klasi " . $this->findClass($line);
-                      $this->import_model->insertRecord($table, $parent, $this->getValue($line), null, $this->findClass($line));
-                      break;
-                      }
-                      }
-                      if ($f == 0) { //if this class not yet in array
-                      $elem = new stdClass();
-                      echo '</br>' . "Ievietoju tabulā $table  vārdu " . $this->getValue($line) . " klasi " . $this->findClass($line) . '</br>';
-                      $elem->key = $this->import_model->insertRecord($table, null, $this->getValue($line), null, $this->findClass($line));
-                      echo 'Tika ievietots ieraksts ' . $elem->key . '</br>';
-                      $elem->class = $this->findClass($line);
-                      array_push($classes, $elem);
-                      } */
-                } else {
-                    //$elem->key = $this->import_model->insertRecord($table, null, '123', null, '0000');
+                    $cleanValue = $this->cheackMistakes($this->getValue($line));
+                    if ($cleanValue != '') {
+                        $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line));
+                    }
+                } else if ($this->getType($line) == 'number' && ($this->findClass($line) == '160')) {
+                    $parent = $this->import_model->findValueParent($table);
+                    if (isset($parent[0]->id)) {
+                        $parent = $this->import_model->updateParent($table, $parent[0]->id, $this->getIntValue($line));
+                    }
                 }
             }
         }
+    }
+
+    private function cheackMistakes($string) {
+        $posBegin = strpos($string, '<span');
+        $posEnd = strpos($string, '</span>');
+        $subStr1 = substr($string, 0, $posBegin);
+        $subStr2 = substr($string, $posEnd + 7);
+        return $subStr1 . $subStr2;
     }
 
     private function haveClass($string) {
@@ -103,6 +94,16 @@ class Import extends CI_Controller {
             return false;
     }
 
+    private function getIntValue($string) {
+        $posBegin = strpos($string, '>');
+        $posEnd = strpos($string, '</td>');
+        if ($posBegin && $posEnd) {
+            $subStr = substr($string, $posBegin + 1, $posEnd - $posBegin - 1);
+            return trim(str_replace(' ', '', $this->getValue($string)));
+        } else
+            return false;
+    }
+
     private function findClass($string) {
         $pos = stripos($string, "class=");
         $subStr = substr($string, $pos + 8, 3);
@@ -110,7 +111,7 @@ class Import extends CI_Controller {
     }
 
     private function createArray($string) {
-        //if(!haveClass) return;
+//if(!haveClass) return;
         $array = array();
 
         $posBegin = stripos($string, "<td");

@@ -32,6 +32,7 @@ class Import_model extends CI_Model {
                   PRIMARY KEY (`id`),
                   KEY `program` (`program`)
                ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6537 ;");
+
         return $query;
     }
 
@@ -45,15 +46,24 @@ class Import_model extends CI_Model {
         $data = $query->get()->result();
         return $data;
     }
-    
-        public function findParent($class) {
-        if ($class == 0)
-            return 0;
-        $query = $this->db->select('id')->
-                from('institutions')->
-                where('class >', $class);
-        $data = $query->get()->result();
-        return $data;
+
+    public function findParent($tableName, $class) {
+        $query = $this->db->query(""
+                . "SELECT DISTINCT id, name FROM $tableName WHERE class < $class ORDER BY class, id DESC LIMIT 0,1");
+        return $query->result();
+    }
+
+    public function findValueParent($tableName) {
+        $query = $this->db->query(""
+                . "SELECT DISTINCT id, name FROM $tableName WHERE class != '160' ORDER BY id DESC LIMIT 0,1");
+        return $query->result();
+    }
+
+    public function updateParent($tableName, $parentId, $value) {
+        $query = $this->db->query(""
+                . "UPDATE $tableName "
+                . "SET VALUE = $value "
+                . "WHERE id = $parentId");
     }
 
 }
