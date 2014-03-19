@@ -31,8 +31,8 @@ class Import extends CI_Controller {
         }
         $lines = explode('<td', $this->input->post('text_input'));
 
-        $this->import_model->createTable($table);
-
+        $this->import_model->createTables($table);
+        $currentInst = false; //no institution at start
         foreach ($lines as $line) {
             if ($this->haveClass($line)) {
                 if ($this->getType($line) == 'string' && $this->getValue($line) != '') {
@@ -42,21 +42,70 @@ class Import extends CI_Controller {
                     } else {
                         $parentId = null;
                     }
-                    $cleanValue = $this->cheackMistakes($this->getValue($line));
-                    if ($cleanValue != '') {
-                        $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line));
+
+                    if ($this->isInstitution($line)) {
+                        //ievirtotDB
+                        //echo $this->getInstitutionName($line);
+                        //  if ($this->import_model->findInstitutionByName($this->getInstitutionName($line), $table)) { //find if institution alreay exitst in DB
+                        // echo $line . ' </br>';
+                        if ($this->haveSpan($line))
+                            $name = $this->cheackMistakes($this->getInstitutionName($line));
+                        else
+                            $name = $this->getInstitutionName($line);
+
+                        $currentInst = $this->import_model->insertInstitution($table, $name);
                     }
-                } else if ($this->getType($line) == 'number' && ($this->findClass($line) == '160')) {
+                    $cleanValue = $this->cheackMistakes($this->getValue($line));
+                    if ($cleanValue != '' && is_numeric($currentInst) && $this->findClass($line) < '91') { //insert only if this is  institution or have parnet institution
+                        echo "Inserting row parent <b>" . $parentId . "</b> nosaukumu: <b>" . $this->getValue($line) . "</b> institution: <b>" . $currentInst . '</b></br>';
+                        $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line), $currentInst);
+                    }
+                } else if ($this->getType($line) == 'number' && (($this->findClass($line) == '160') || ($this->findClass($line) == '75'))) {
                     $parent = $this->import_model->findValueParent($table);
                     if (isset($parent[0]->id)) {
                         $parent = $this->import_model->updateParent($table, $parent[0]->id, $this->getIntValue($line));
                     }
+                } else if ($this->isCode($line)) {
+                   // echo $line . '</br>';
                 }
             }
         }
     }
 
-    private function cheackMistakes($string) {
+    private function isCode($string) {
+                        echo $this->findClass($string);
+        if (!$this->haveClass($string) && $this->findClass($string) != '73') {
+
+            return false;
+        }
+        if ($this->getValue($string) != '')
+            return true;
+        return false;
+    }
+
+    private function isInstitution($string) {
+        if (!$this->haveClass($string) || $this->findClass($string) != '88')
+            return false;
+        $string = trim(str_replace(' ', '', $this->getValue($string)));
+        $subStr1 = substr($string, 0, 2);
+        if (is_numeric($subStr1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function getInstitutionName($string) {
+        $string = trim($this->getValue($string));
+        $subStr1 = substr($string, 3);
+        return trim($subStr1);
+    }
+
+    private function haveSpan($string) {
+        return strpos($string, '<span');
+    }
+
+    private function cheackMistakes($string) { //to remove <span> element if exist
         $posBegin = strpos($string, '<span');
         $posEnd = strpos($string, '</span>');
         $subStr1 = substr($string, 0, $posBegin);
@@ -107,20 +156,21 @@ class Import extends CI_Controller {
     private function findClass($string) {
         $pos = stripos($string, "class=");
         $subStr = substr($string, $pos + 8, 3);
-        return $subStr;
+        if (stripos($subStr, ">")) {
+            return trim(str_replace(' ', '', $this->checkClass($subStr)));
+        } else {
+            return trim(str_replace(' ', '', $subStr));
+            ;
+        }
     }
 
-    private function createArray($string) {
-//if(!haveClass) return;
-        $array = array();
-
-        $posBegin = stripos($string, "<td");
-        $posEnd = stripos($string, ">");
-        if ($posBegin && $posEnd) {
-            $subStr = substr($string, $posBegin + 1, $posEnd - $posBegin - 1);
-            if (($this->haveClass($subStr) && $this->haveStyle($string) && $this->haveWidth($string) || ($this->haveClass($subStr) && $this->getType($subStr) == 'number')))
-                array_push($array, $subStr);
-            echo 'Ierakstu masīvs' . print_r($arrays);
+    private function checkClass($string) {
+        $pos = strpos($string, '>');
+        if ($pos) {
+            $subStr = substr($string, $pos - 2, 2);
+            return $subStr;
+        } else {
+            return;
         }
     }
 
