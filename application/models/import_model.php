@@ -7,14 +7,16 @@ class Import_model extends CI_Model {
         parent::__construct();
     }
 
-    function insertRecord($table, $parent, $name, $value, $class, $insti) {
-        set_time_limit(1200);
+    function insertRecord($table, $parent, $name, $value, $class, $insti, $code, $proramm) {
+        set_time_limit(2000);
         $data = array(
             'parent' => $parent,
             'name' => $name,
             'value' => $value,
             'class' => $class,
-            'institucijas_id' => $insti
+            'institucijas_id' => $insti,
+            'function_code' => $code,
+            'program' => $proramm
         );
         $this->db->insert("$table", $data);
         $insert_id = $this->db->insert_id();
@@ -35,12 +37,13 @@ class Import_model extends CI_Model {
                   `id` INT(11) NOT NULL AUTO_INCREMENT,
                   `name` VARCHAR(255) NULL,
                   `value` INT(20) NULL,
-                  `program` INT(11) NULL,
-                  `class` VARCHAR(45) NULL,
+                  `program` VARCHAR(20) NULL,
+                  `class` INT(5) NULL,
                   `parent` INT(11) NULL,
                   `institucijas_id` INT(11) NOT NULL,
                   `function_code` VARCHAR(20) NULL,
                   PRIMARY KEY (`id`),
+                  INDEX `class` (`class` DESC),
                   INDEX `fk_budzets_budzets_idx` (`parent` ASC),
                   INDEX `fk_budzets_institucijas1_idx` (`institucijas_id` ASC),
                   CONSTRAINT `fk_budzets_budzets`

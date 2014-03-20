@@ -33,9 +33,12 @@ class Import extends CI_Controller {
 
         $this->import_model->createTables($table);
         $currentInst = false; //no institution at start
+        $code = null;
+        $program = null;
         foreach ($lines as $line) {
             if ($this->haveClass($line)) {
-                if ($this->getType($line) == 'string' && $this->getValue($line) != '') {
+                if ($this->getType($line) == 'string' && $this->getValue($line) != '' && !$this->isCode($line) && !$this->isProgramm($line)) {
+
                     $parent = $this->import_model->findParent($table, $this->findClass($line));
                     if (isset($parent[0]->id)) {
                         $parentId = $parent[0]->id;
@@ -44,10 +47,8 @@ class Import extends CI_Controller {
                     }
 
                     if ($this->isInstitution($line)) {
-                        //ievirtotDB
-                        //echo $this->getInstitutionName($line);
-                        //  if ($this->import_model->findInstitutionByName($this->getInstitutionName($line), $table)) { //find if institution alreay exitst in DB
-                        // echo $line . ' </br>';
+                        $code = null;
+                        $program = null;
                         if ($this->haveSpan($line))
                             $name = $this->cheackMistakes($this->getInstitutionName($line));
                         else
@@ -57,8 +58,7 @@ class Import extends CI_Controller {
                     }
                     $cleanValue = $this->cheackMistakes($this->getValue($line));
                     if ($cleanValue != '' && is_numeric($currentInst) && $this->findClass($line) < '91') { //insert only if this is  institution or have parnet institution
-                        echo "Inserting row parent <b>" . $parentId . "</b> nosaukumu: <b>" . $this->getValue($line) . "</b> institution: <b>" . $currentInst . '</b></br>';
-                        $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line), $currentInst);
+                        $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line), $currentInst, $code, $program);
                     }
                 } else if ($this->getType($line) == 'number' && (($this->findClass($line) == '160') || ($this->findClass($line) == '75'))) {
                     $parent = $this->import_model->findValueParent($table);
@@ -66,20 +66,34 @@ class Import extends CI_Controller {
                         $parent = $this->import_model->updateParent($table, $parent[0]->id, $this->getIntValue($line));
                     }
                 } else if ($this->isCode($line)) {
-                   // echo $line . '</br>';
+                    $code = $this->getValue($line);
+                } else if ($this->isProgramm($line)) {
+                    //echo $this->getValue($line);
+                    $program = $this->getValue($line);
                 }
             }
         }
     }
 
-    private function isCode($string) {
-                        echo $this->findClass($string);
-        if (!$this->haveClass($string) && $this->findClass($string) != '73') {
-
+    private function isProgramm($string) {
+        if (!strpos($this->getValue($string), '.')) {
             return false;
         }
-        if ($this->getValue($string) != '')
+        if ($this->findClass($string) == '80' || $this->findClass($string) == '91') {
+            $string = str_replace(' ', '', trim(str_replace('.', '', $this->getValue($string))));
+            if (is_numeric($string))
+                return true;
+        }
+        return false;
+    }
+
+    private function isCode($string) {
+        if ($this->findClass($string) != '73') {
+            return false;
+        }
+        if ($this->getValue($string) != '') {
             return true;
+        }
         return false;
     }
 
@@ -160,7 +174,6 @@ class Import extends CI_Controller {
             return trim(str_replace(' ', '', $this->checkClass($subStr)));
         } else {
             return trim(str_replace(' ', '', $subStr));
-            ;
         }
     }
 
