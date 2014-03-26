@@ -7,7 +7,7 @@ class Import extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('import_model');
+        $this->load->model('import_model');  
     }
 
     public function index() {
