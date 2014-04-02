@@ -44,14 +44,14 @@ class Import_model extends CI_Model {
                   `function_code` VARCHAR(20) NULL,
                   PRIMARY KEY (`id`),
                   INDEX `class` (`class` DESC),
-                  INDEX `fk_budzets_budzets_idx` (`parent` ASC),
-                  INDEX `fk_budzets_institucijas1_idx` (`institucijas_id` ASC),
-                  CONSTRAINT `fk_budzets_budzets`
+                  INDEX `fk_inx_fk_$tableName` (`parent` ASC),
+                  INDEX `fk_inx_$institutionTable` (`institucijas_id` ASC),
+                  CONSTRAINT `fk_$tableName`
                     FOREIGN KEY (`parent`)
                     REFERENCES `$tableName` (`id`)
                     ON DELETE NO ACTION
                     ON UPDATE NO ACTION,
-                  CONSTRAINT `fk_budzets_institucijas1`
+                  CONSTRAINT `fk_$institutionTable`
                     FOREIGN KEY (`institucijas_id`)
                     REFERENCES `$institutionTable` (`id`)
                     ON DELETE NO ACTION
@@ -70,10 +70,10 @@ class Import_model extends CI_Model {
         }
         return false;
     }
-
+    //Find parent id by class
     public function findParent($tableName, $class) {
         $query = $this->db->query(""
-                . "SELECT DISTINCT id, name FROM $tableName WHERE class < $class ORDER BY class, id DESC LIMIT 0,1");
+                . "SELECT DISTINCT id, name FROM $tableName WHERE class < $class ORDER BY id DESC LIMIT 0,1");
         return $query->result();
     }
 

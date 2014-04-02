@@ -7,7 +7,7 @@ class Import extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('import_model');  
+        $this->load->model('import_model');
     }
 
     public function index() {
@@ -35,20 +35,22 @@ class Import extends CI_Controller {
         $currentInst = false; //no institution at start
         $code = null;
         $program = null;
+        $expenseFlag = false; //flag who point when starts expense
         foreach ($lines as $line) {
             if ($this->haveClass($line)) {
                 if ($this->getType($line) == 'string' && $this->getValue($line) != '' && !$this->isCode($line) && !$this->isProgramm($line)) {
 
                     $parent = $this->import_model->findParent($table, $this->findClass($line));
+
                     if (isset($parent[0]->id)) {
                         $parentId = $parent[0]->id;
                     } else {
                         $parentId = null;
                     }
-
                     if ($this->isInstitution($line)) {
                         $code = null;
                         $program = null;
+                        $expenseFlag = false; //new insitution, new expense
                         if ($this->haveSpan($line))
                             $name = $this->cheackMistakes($this->getInstitutionName($line));
                         else
@@ -56,8 +58,13 @@ class Import extends CI_Controller {
 
                         $currentInst = $this->import_model->insertInstitution($table, $name);
                     }
+                    if (!$expenseFlag) {
+                        if ($this->getValue($line) == "Izdevumi – kopā") {
+                            $expenseFlag = true;
+                        }
+                    }
                     $cleanValue = $this->cheackMistakes($this->getValue($line));
-                    if ($cleanValue != '' && is_numeric($currentInst) && $this->findClass($line) < '91') { //insert only if this is  institution or have parnet institution
+                    if ($cleanValue != '' && is_numeric($currentInst) && $this->findClass($line) < '91' && ($expenseFlag == true || $this->isInstitution($line))) { //insert only if this is  institution or have parnet institution
                         $this->import_model->insertRecord($table, $parentId, $this->getValue($line), null, $this->findClass($line), $currentInst, $code, $program);
                     }
                 } else if ($this->getType($line) == 'number' && (($this->findClass($line) == '160') || ($this->findClass($line) == '75'))) {
@@ -68,7 +75,6 @@ class Import extends CI_Controller {
                 } else if ($this->isCode($line)) {
                     $code = $this->getValue($line);
                 } else if ($this->isProgramm($line)) {
-                    //echo $this->getValue($line);
                     $program = $this->getValue($line);
                 }
             }
